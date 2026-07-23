@@ -23,4 +23,5 @@
 _minted*/
 
 # Local Claude Code settings -- machine-specific, not part of the template
-.claude/
+.claude/*
+!.claude/skills/
