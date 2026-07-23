@@ -1,5 +1,5 @@
 ---
-name: thesis-setup
+name: unipd-marco-fanno-template-setup
 description: This skill should be used when the user asks to "set up a new thesis from this template", "replicate this thesis template", "start my thesis using the Marco Fanno template", "personalize this thesis template", "fill in my thesis details", or has just used/cloned the `unipd-marco-fanno-thesis-template` GitHub template repository and wants it turned into their own working thesis project.
 ---
 
