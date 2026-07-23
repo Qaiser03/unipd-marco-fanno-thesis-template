@@ -1,0 +1,50 @@
+\chapter{Literature Review}
+\label{chap:literature-review}
+
+% --- Demonstrates: a plain booktabs table, and a tabularx + threeparttable
+% table with footnotes. Replace with your own review.
+
+\section{Cost and Investment-Timing Studies}
+Several strands of literature are relevant background for a grid-parity style analysis: cost-projection studies \citep{lorenczik2020projected}, learning-curve models of technology cost decline \citep{breyer2013economics}, and stochastic models of electricity price dynamics \citep{lucia2002electricity,gianfreda2010volatility}. \cref{tab:sample-studies} summarizes a few illustrative examples in the style you might use to structure your own review table.
+
+\begin{table}[H]
+\centering
+\caption{Illustrative summary table (booktabs style)}
+\label{tab:sample-studies}
+\begin{tabular}{ll>{\raggedright\arraybackslash}m{2.6cm}>{\raggedright\arraybackslash}m{3.6cm}}
+\toprule
+{\color{unipdblue}\bfseries Study} & {\color{unipdblue}\bfseries Region} & {\color{unipdblue}\bfseries Method} & {\color{unipdblue}\bfseries Key Finding} \\
+\midrule
+\citet{biondi2015solar} & Italy & Real options & Investment delay under uncertainty \\
+\citet{lucia2002electricity} & Nordic & Stochastic price model & Mean-reverting price dynamics \\
+\citet{breyer2013economics} & Global & Learning curve & PV cost decline projections \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Positioning of This Thesis}
+Use this section to state, in a few sentences, what gap in the literature summarized above your own thesis fills.
+
+\cref{tab:sample-parameters} shows a second table style -- \texttt{tabularx} with a fixed total width plus \texttt{threeparttable} footnotes -- useful when you need to annotate individual values.
+
+\begin{table}[H]
+\centering
+\begin{threeparttable}
+\caption{Illustrative parameter table (tabularx + threeparttable style)}
+\label{tab:sample-parameters}
+\begin{tabularx}{0.85\textwidth}{l>{\raggedright\arraybackslash}m{6.5cm}r}
+\toprule
+{\color{unipdblue}\bfseries Parameter} & {\color{unipdblue}\bfseries Description} & {\color{unipdblue}\bfseries Value} \\
+\midrule
+$\mu$ & Drift rate\tnote{a} & 0.02 \\
+$\sigma$ & Volatility\tnote{b} & 0.15 \\
+$r$ & Discount rate & 0.05 \\
+\bottomrule
+\end{tabularx}
+\begin{tablenotes}
+\small
+\item[a] Annualised, estimated from historical data.
+\item[b] Annualised standard deviation of log returns.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}

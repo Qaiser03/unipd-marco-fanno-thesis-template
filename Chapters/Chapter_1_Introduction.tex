@@ -1,0 +1,37 @@
+\chapter{Introduction}
+\label{chap:introduction}
+
+% --- Demonstrates: sectioning, \citep{}, a footnote with inline math, and
+% \cref{} (cross-referencing another chapter). Replace this whole chapter
+% with your own introduction.
+
+Energy transition research often distinguishes between \emph{grid parity} -- the point at which a technology's levelised cost matches the prevailing market price -- and the point at which a rational, uncertainty-averse investor actually commits capital. Classical investment theory shows that under price and cost uncertainty, delaying an irreversible investment can carry positive option value \citep{dixit1994}, so the two thresholds need not coincide. \citet{biondi2015solar} apply this real-options framework to Italian solar photovoltaic investment specifically, motivating the kind of stochastic-modeling approach demonstrated in \cref{chap:methodology} of this template.\footnote{As a quick illustration of a footnote containing inline math: if a variable follows a Geometric Brownian Motion $dP_t = \mu P_t\,dt + \sigma P_t\,dW_t$, its expected value grows at rate $\mu$ while its variance is driven by $\sigma$.}
+
+\section{Motivation}
+Use this section to state the real-world problem or gap your thesis addresses, and why it matters to the field (policy, industry, or academic literature).
+
+\section{Research Question and Objectives}
+State your research question precisely, then list 2--4 concrete objectives that, taken together, answer it.
+
+\section{Thesis Structure}
+Briefly describe what each subsequent chapter covers, e.g. \cref{chap:literature-review} reviews the relevant literature, \cref{chap:methodology} sets out the model, and \cref{chap:results} presents and discusses the results. \cref{fig:thesis-roadmap} summarizes this structure graphically.
+
+\begin{figure}[H]
+\centering
+\tikzset{
+  roadstage/.style={rectangle, thick, rounded corners=3pt, minimum width=2.7cm,
+    minimum height=1.3cm, align=center, font=\small\sffamily, drop shadow},
+  roadarrow/.style={-{Latex[length=2.5mm]}, thick, unipdgray},
+}
+\begin{tikzpicture}[node distance=1cm]
+  \node[roadstage, draw=unipdred,   fill=unipdred!15]                  (intro) {Introduction\\ \scriptsize\cref{chap:introduction}};
+  \node[roadstage, draw=unipdblue,  fill=unipdblue!12, right=of intro] (lit)   {Literature\\ Review\\ \scriptsize\cref{chap:literature-review}};
+  \node[roadstage, draw=unipdgold,  fill=unipdgold!18, right=of lit]   (meth)  {Methodology\\ \scriptsize\cref{chap:methodology}};
+  \node[roadstage, draw=unipdgreen, fill=unipdgreen!15, right=of meth] (res)   {Results \&\\ Discussion\\ \scriptsize\cref{chap:results}};
+  \draw[roadarrow] (intro) -- (lit);
+  \draw[roadarrow] (lit) -- (meth);
+  \draw[roadarrow] (meth) -- (res);
+\end{tikzpicture}
+\caption{Thesis roadmap: how the chapters build on one another.}
+\label{fig:thesis-roadmap}
+\end{figure}

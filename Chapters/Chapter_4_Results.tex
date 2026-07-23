@@ -1,0 +1,67 @@
+\chapter{Results and Discussion}
+\label{chap:results}
+
+% --- Demonstrates: a pgfplots chart drawn from inline data (no external
+% image file needed), a minted code listing, and \includegraphics syntax
+% for when you DO have an external image file. Replace with your own results.
+
+\section{Illustrative Chart}
+
+\cref{fig:sample-chart} is drawn directly from inline dummy data with \texttt{pgfplots} -- useful when you want a chart under version control as text rather than as a binary image file. Swap in your own \texttt{coordinates} (or point \texttt{pgfplotstable} at a \texttt{.csv}) to plot real results.
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+    width=0.7\textwidth,
+    height=6cm,
+    xlabel={Year},
+    ylabel={Illustrative cost index},
+    grid=major,
+    grid style={unipdgray!25},
+    axis line style={unipdgray},
+    tick label style={font=\footnotesize},
+]
+\addplot[thick, color=unipdblue, mark=*, mark options={fill=unipdblue, draw=unipdblue}] coordinates {
+  (2015,100) (2016,88) (2017,76) (2018,68) (2019,60) (2020,54) (2021,49) (2022,45)
+};
+\end{axis}
+\end{tikzpicture}
+\caption{Illustrative declining cost index (synthetic data, pgfplots)}
+\label{fig:sample-chart}
+\end{figure}
+
+\section{Illustrative Code Listing}
+
+\cref{lst:sample-code} shows the \texttt{minted} package rendering a short script with syntax highlighting. \textbf{Note:} \texttt{minted} requires Python + Pygments installed and \texttt{-shell-escape} enabled at compile time -- see README.md if this block fails to compile.
+
+\begin{figure}[H]
+\begin{minted}{python}
+import numpy as np
+
+def simulate_gbm(p0, mu, sigma, steps, dt, seed=0):
+    rng = np.random.default_rng(seed)
+    path = np.empty(steps)
+    path[0] = p0
+    for t in range(1, steps):
+        shock = rng.normal(0, np.sqrt(dt))
+        path[t] = path[t - 1] * (1 + mu * dt + sigma * shock)
+    return path
+\end{minted}
+\caption{Illustrative code listing (minted)}
+\label{lst:sample-code}
+\end{figure}
+
+\section{Including an Image File}
+
+When you have an actual image file (a plot exported from Python/Stata/Excel, a map, a photo, etc.), include it with \texttt{graphicx}'s \texttt{\textbackslash includegraphics}, as shown in \cref{fig:sample-image} (here pointed at the template's own logo file purely to demonstrate the syntax -- point it at your own figure).
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.25\textwidth]{unipd-logo.png}
+\caption{Illustrative external image inclusion (\texttt{\textbackslash includegraphics})}
+\label{fig:sample-image}
+\end{figure}
+
+\section{Discussion}
+Use this section to interpret your results in light of the literature reviewed in \cref{chap:literature-review} and the model set out in \cref{chap:methodology}.

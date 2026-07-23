@@ -1,0 +1,183 @@
+\usepackage{xcolor}
+\definecolor{unipdred}{RGB}{155,0,30}
+\definecolor{unipdblue}{RGB}{28,60,110}
+\definecolor{unipdgray}{RGB}{95,95,95}
+\definecolor{unipdgold}{RGB}{188,142,22}
+\definecolor{unipdgreen}{RGB}{15,120,100} % teal-shifted green: stays distinguishable from unipdred under red-green color-vision deficiency
+
+
+\usepackage[acronym,nowarn]{glossaries} % nowarn: this template prints acronyms via the separate `acronym` package instead, so \printglossary is deliberately never called
+\makeglossaries          % ① only ONCE
+
+
+%===================================
+\usepackage[utf8]{inputenc}
+\usepackage{minted}
+\usepackage{fvextra}
+\usepackage{upquote}
+\usepackage{fancyvrb}
+\setminted{escapeinside=||,mathescape=true}
+
+\usepackage[backend=biber, style=apa, natbib=true, doi=true, url=false, isbn=false, eprint=false]{biblatex}
+
+
+\addbibresource{references.bib}  % Replace with your own .bib filename
+
+%===================================
+
+\usepackage{newunicodechar}
+\newunicodechar{Δ}{$\Delta$}
+\newunicodechar{≈}{\approx}
+\newunicodechar{−}{-}
+\newunicodechar{⁻}{\textsuperscript{-}}
+\newunicodechar{̃}{\~{}}
+\usepackage{acronym}
+\setlength{\headheight}{14.5pt}
+
+%======================================================================
+% --------------------- LANGUAGE AND ENCODING ------------------------
+%======================================================================
+
+\usepackage{textcomp} % For thin space and other text symbols
+\DeclareUnicodeCharacter{2009}{\,} % Map Unicode thin space to LaTeX thin space
+\DeclareUnicodeCharacter{03B1}{\alpha} % Map Unicode alpha to LaTeX \alpha
+\usepackage[T1]{fontenc}             % Output font encoding for better character rendering
+\usepackage[english]{babel}          % Language-specific typography and hyphenation
+\usepackage[gen]{eurosym}            % Euro symbol support
+\usepackage{amsthm} % For theorem, lemma, and remark environments
+\usepackage{newunicodechar}
+
+\DeclareUnicodeCharacter{202F}{~} % U+202F NARROW NO-BREAK SPACE as non-breaking space
+\usepackage[most,breakable]{tcolorbox}
+\usepackage{enumitem} % For custom enumerate labels
+%======================================================================
+% ------------------------- PAGE LAYOUT ------------------------------
+%======================================================================
+\usepackage[a4paper, margin=1in]{geometry} % Page size and margins
+\usepackage{setspace}                      % For line spacing control (\onehalfspacing, \doublespacing)
+\onehalfspacing                            % Set document to one-and-a-half line spacing
+
+%======================================================================
+% -------------------- FONTS AND TYPOGRAPHY --------------------------
+%======================================================================
+\usepackage{microtype}               % Improves typography (micro-adjustments to spacing)
+\usepackage{csquotes}                % Context-sensitive quotation marks
+\usepackage{empheq}                 % For empheq environment (boxed equations, etc.)
+
+%======================================================================
+% --------------------- CHAPTER AND SECTION STYLING ------------------
+%======================================================================
+\usepackage[Glenn]{fncychap}         % Stylized chapter headings
+\ChNameVar{\bfseries\Large\sf\color{unipdred}}   % "Chapter" label in the institutional red
+\ChNumVar{\Huge\color{unipdred}}                 % Chapter number
+\ChTitleVar{\bfseries\Large\rm\color{unipdred}}  % Chapter title
+\usepackage{titlesec}                % For customizing section/subsection titles
+\titleformat{\section}{\large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection}{1em}{}
+
+%======================================================================
+% -------------------- HEADER, FOOTER, AND FOOTNOTES -----------------
+%======================================================================
+\usepackage{fancyhdr}                % For custom headers and footers
+\usepackage[bottom,hang]{footmisc}   % Advanced footnote placement
+\pagestyle{fancy}
+\fancyhf{}                           % Clear all header and footer fields
+\renewcommand{\headrulewidth}{0.3pt} % Header rule line
+\setlength{\footnotemargin}{6pt}     % Margin for footnote numbers
+
+\renewcommand{\chaptermark}[1]{\markboth{\textit{\thechapter. #1}}{}}
+\renewcommand{\sectionmark}[1]{\markright{\textit{\thesection. #1}}}
+
+\fancyhead[L]{\ifnum\value{section}=0\leftmark\else\rightmark\fi} % Show Chapter or Section in left header
+\fancyhead[R]{\thepage} % Page number in right header
+
+% Style for chapter start pages (plain style)
+\fancypagestyle{plain}{
+    \fancyhf{} % Clear header and footer
+    \renewcommand{\headrulewidth}{0pt} % No header line
+    \fancyfoot[R]{\thepage} % Page number in bottom right
+}
+
+
+%======================================================================
+% ------------------------- MATH PACKAGES ----------------------------
+%======================================================================
+\usepackage{amsmath, amssymb, amsthm} % Core AMS math packages and theorem environments
+
+\usepackage{mathtools}               % Extends amsmath with more tools
+\usepackage{bm}                      % For bold math symbols: \bm{}
+\usepackage{siunitx}                 % For typesetting numbers and units correctly
+\sisetup{output-decimal-marker={.}, per-mode=symbol}
+
+%======================================================================
+% ----------------------------- TABLES -------------------------------
+%======================================================================
+\usepackage{array}                   % Extended column types (m{}, b{}), used for vertically-centered wrapped columns
+\usepackage{booktabs}                % High-quality table rules
+\usepackage{multirow}                % For cells spanning multiple rows
+\usepackage{tabularx}                % Tables with auto-adjusting column widths
+\usepackage{threeparttable}          % For tables with notes
+\usepackage{longtable}               % For tables that span multiple pages
+
+%======================================================================
+% ---------------------- FIGURES AND GRAPHICS ------------------------
+%======================================================================
+\usepackage{graphicx}                % For including images
+\usepackage{caption}                 % Customizing figure and table captions
+\captionsetup{labelfont={bf,color=unipdred}, font=small}
+\usepackage{subcaption}              % For subfigures and sub-tables
+\usepackage{float}                   % Improved control over float placement [H]
+
+%======================================================================
+% ------------------- DRAWING AND VISUALIZATION ----------------------
+%======================================================================
+\usepackage{tikz}                    % Powerful drawing language
+\usepackage{pgfplots}                % For axis environment and advanced plots
+\usetikzlibrary{shadows, arrows.meta, positioning, shapes.geometric}
+\tikzset{li/.style={-latex, thick, dashed, color=gray}} % Define 'li' arrow style
+\pgfplotsset{compat=1.18}
+\usepgfplotslibrary{groupplots}
+\usepgfplotslibrary{fillbetween}
+\usepackage{pgfplotstable}           % For plotting data from tables/files
+\usepackage{pgf-pie}                 % For creating pie charts
+\usepackage{forest}                  % For drawing trees (e.g., decision trees)
+\usepackage[table,x11names,svgnames]{xcolor}           % Color support, required by some packages
+
+%======================================================================
+% -------------------- CODE LISTINGS AND SYMBOLS ---------------------
+%======================================================================
+\usepackage{listings}                % For typesetting code
+\lstset{basicstyle=\ttfamily, breaklines=true}
+\usepackage{pifont}                  % Access to symbols like checkmarks (\ding{51})
+
+%======================================================================
+% -------------- HYPERLINKS AND CROSS-REFERENCING --------------------
+%======================================================================
+% NOTE: hyperref should be loaded last, with few exceptions.
+\usepackage{hyperref}                % Creates hyperlinks in the document
+\hypersetup{
+    colorlinks=true,
+    linkcolor=unipdblue,
+    citecolor=unipdblue,
+    urlcolor=unipdblue,
+    pdfauthor={Qaiser Aziz},                                          % overridden again in main.tex from \ThesisAuthor
+    pdftitle={Solar Grid Parity in Italy: Where Do We Stand}          % overridden again in main.tex from \ThesisTitleMain
+}
+\usepackage[capitalize,nameinlink]{cleveref} % Must be loaded AFTER hyperref
+
+%======================================================================
+% ----------------- THESIS STRUCTURE AND APPENDICES ------------------
+%======================================================================
+\usepackage[toc,page]{appendix}      % Better control over appendices
+\usepackage[nottoc]{tocbibind}       % Adds Bib, LoF, LoT, etc., to the ToC
+
+%======================================================================
+% ----------------------- OPTIONAL UTILITIES -------------------------
+%======================================================================
+\usepackage{pdfpages}                % To insert pages from external PDF files
+\usepackage{comment}                 % For commenting out large blocks of text
+\usepackage{lipsum}                  % For generating dummy text (for testing layout)
+
+%======================================================================
+% ------------------------- END OF PREAMBLE --------------------------
+%======================================================================

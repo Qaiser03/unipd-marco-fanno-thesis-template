@@ -1,0 +1,94 @@
+\chapter{Methodology}
+\label{chap:methodology}
+
+% --- Demonstrates: the equation environment, siunitx (\si, \SI), the custom
+% `theo` theorem box (tcolorbox-based, defined in main.tex), and a tikz
+% diagram with a locally-scoped \tikzset. Replace with your own model.
+
+\section{Model Setup}
+\label{sec:methodology-model}
+
+Suppose the relevant state variable $P_t$ (e.g.\ an electricity price) follows a Geometric Brownian Motion:
+\begin{equation}
+  \label{eq:gbm}
+  dP_t = \mu P_t\, dt + \sigma P_t\, dW_t,
+\end{equation}
+where $\mu$ is the drift, $\sigma$ is the volatility, and $W_t$ is a standard Wiener process. Installed system capacity is commonly reported in \si{\kilo\watt}, and irradiance inputs in \si{\kilo\watt\hour\per\meter\squared} per year (siunitx handles the unit typesetting and spacing automatically).
+
+\begin{theo}{Optimal Investment Trigger}{opt-trigger}
+\label{theo:opt-trigger}
+Under a real-options formulation with GBM dynamics as in \cref{eq:gbm}, the optimal investment trigger $P^{*}$ solves the smooth-pasting condition of the associated Hamilton--Jacobi--Bellman equation. Investment is optimal once $P_t \geq P^{*}$.
+\end{theo}
+
+\cref{theo:opt-trigger} is an example of the custom theorem box style (built with \texttt{\textbackslash newtcbtheorem}, defined once in \texttt{main.tex}) -- use it for definitions, propositions, or lemmas that you want visually set off from the main text.
+
+\section{Solution Approach}
+
+\cref{fig:model-flow} sketches the modeling pipeline as a tikz diagram with a locally-scoped style definition (the \texttt{\textbackslash tikzset\{...\}} call only needs to live in this file; it does not need to be in the preamble). Each stage is colored by role -- data, estimation, model, and decision -- using the institutional \texttt{unipdred} tone from \texttt{preamble.tex} alongside three complementary colors (\texttt{unipdblue}, \texttt{unipdgold}, \texttt{unipdgreen}), with a dashed feedback arrow indicating that the trigger is periodically re-estimated as new data arrive.
+
+\begin{figure}[H]
+\centering
+\tikzset{
+  stage/.style={rectangle, thick, rounded corners=3pt, minimum width=2.6cm,
+    minimum height=1.1cm, align=center, font=\small\sffamily, drop shadow, text=black!85},
+  pipearrow/.style={-{Latex[length=2.5mm]}, thick, unipdgray},
+  feedback/.style={-{Latex[length=2mm]}, thick, dashed, unipdgray},
+}
+\begin{tikzpicture}[node distance=1.1cm]
+  \node[stage, draw=unipdblue, fill=unipdblue!12]                 (data)   {Input\\ Data};
+  \node[stage, draw=unipdgold, fill=unipdgold!18, right=of data]   (estim)  {Parameter\\ Estimation};
+  \node[stage, draw=unipdred,  fill=unipdred!12,  right=of estim]  (model)  {Stochastic\\ Model (GBM)};
+  \node[stage, draw=unipdgreen,fill=unipdgreen!15,right=of model]  (trigger){Investment\\ Trigger};
+  \draw[pipearrow] (data) -- (estim);
+  \draw[pipearrow] (estim) -- (model);
+  \draw[pipearrow] (model) -- (trigger);
+  \draw[feedback] (trigger.south) .. controls +(0,-1.3) and +(0,-1.3) ..
+    node[below, font=\tiny\sffamily, text=unipdgray] {monitoring \& re-estimation} (data.south);
+\end{tikzpicture}
+
+\vspace{6pt}
+{\footnotesize\sffamily
+\tikz[baseline=-0.5ex]\draw[draw=unipdblue, fill=unipdblue!12] (0,0) rectangle (0.28,0.28);~Data \quad
+\tikz[baseline=-0.5ex]\draw[draw=unipdgold, fill=unipdgold!18] (0,0) rectangle (0.28,0.28);~Estimation \quad
+\tikz[baseline=-0.5ex]\draw[draw=unipdred, fill=unipdred!12] (0,0) rectangle (0.28,0.28);~Model \quad
+\tikz[baseline=-0.5ex]\draw[draw=unipdgreen, fill=unipdgreen!15] (0,0) rectangle (0.28,0.28);~Decision
+\par}
+
+\caption{Illustrative modeling pipeline: raw inputs are processed into estimated parameters, fed into the stochastic (GBM) model, and used to derive the investment trigger, which is periodically revisited as new data arrive. Colors encode each stage's role (legend above).}
+\label{fig:model-flow}
+\end{figure}
+
+\subsection{Decision Logic}
+
+\cref{fig:decision-logic} complements \cref{fig:model-flow} by depicting the real-options decision rule from \cref{theo:opt-trigger} as an explicit control-flow diagram: at each period the state variable $P_t$ is compared against the trigger $P^{*}$, with investment occurring only once the trigger is reached.
+
+\begin{figure}[H]
+\centering
+\tikzset{
+  decbox/.style={rectangle, thick, rounded corners=3pt, minimum width=2.8cm,
+    minimum height=1cm, align=center, font=\small\sffamily, drop shadow,
+    draw=unipdblue, fill=unipdblue!10},
+  decdiamond/.style={diamond, thick, aspect=2, minimum width=3.2cm,
+    minimum height=1.6cm, align=center, font=\small\sffamily, drop shadow, inner sep=1pt,
+    draw=unipdgold, fill=unipdgold!18},
+  investbox/.style={rectangle, thick, rounded corners=3pt, minimum width=2.4cm,
+    minimum height=1cm, align=center, font=\small\sffamily\bfseries, drop shadow,
+    draw=unipdgreen, fill=unipdgreen!20},
+  waitbox/.style={rectangle, thick, rounded corners=3pt, minimum width=2.2cm,
+    minimum height=1cm, align=center, font=\small\sffamily, drop shadow,
+    draw=unipdgray, fill=unipdgray!8},
+  decarrow/.style={-{Latex[length=2.5mm]}, thick},
+}
+\begin{tikzpicture}[node distance=1.3cm and 1.6cm]
+  \node[decbox]                        (observe) {Observe $P_t$};
+  \node[decdiamond, right=of observe]   (check)   {$P_t \geq P^{*}$?};
+  \node[investbox,  right=of check]     (invest)  {Invest};
+  \node[waitbox,     below=of check]    (wait)    {Wait};
+  \draw[decarrow, unipdblue]  (observe) -- (check);
+  \draw[decarrow, unipdgreen] (check) -- node[above, font=\small\sffamily] {Yes} (invest);
+  \draw[decarrow, unipdgray]  (check) -- node[right, font=\small\sffamily] {No} (wait);
+  \draw[decarrow, unipdgray, dashed] (wait.west) .. controls +(-1.6,0) and +(0,-1.6) .. (observe.south);
+\end{tikzpicture}
+\caption{Illustrative real-options decision logic: the process observes $P_t$ each period and invests once the trigger $P^{*}$ is reached; otherwise it waits and re-checks at the next period.}
+\label{fig:decision-logic}
+\end{figure}

@@ -1,0 +1,128 @@
+%====================  main.tex  ====================
+% UniPD "Marco Fanno" Thesis Template
+% Department of Economics and Management, University of Padova
+%
+% HOW TO USE THIS FILE
+%   1. Edit the placeholder fields in the "THESIS DETAILS" block below.
+%   2. Replace the sample chapters in Chapters/ and appendix/ with your own.
+%   3. See README.md for full compile instructions and a feature guide.
+%=====================================================================
+\documentclass[12pt,a4paper]{report}
+
+\input{preamble}
+\makeglossaries
+\newtcbtheorem{theo}%
+{Theorem}{}{theorem}
+\crefname{theo}{Theorem}{Theorems} % so \cref{theo:...} renders as "Theorem N", not a generic name
+
+%=====================================================================
+% ------------------------- THESIS DETAILS ---------------------------
+% Edit these fields only -- the title page and PDF metadata below pull
+% from them automatically.
+%=====================================================================
+\newcommand{\ThesisTitleMain}{Solar Grid Parity in Italy: Where Do We Stand}
+\newcommand{\ThesisTitleSubtitle}{A Dynamic Stochastic Model}
+\newcommand{\ThesisAuthor}{Qaiser Aziz}
+\newcommand{\ThesisMatricola}{Matricola No. XXXXXXX} % TODO: replace with your matricola number
+\newcommand{\ThesisSupervisor}{Prof.\ Michele Moretto}
+\newcommand{\ThesisDegreeProgram}{Master Degree in Economics and Finance}
+\newcommand{\ThesisAcademicYear}{20XX--20XX}
+
+\hypersetup{
+    pdfauthor={\ThesisAuthor},
+    pdftitle={\ThesisTitleMain}
+}
+
+\date{}
+
+%------------------------
+% Document Start
+%------------------------
+\begin{document}
+
+
+\begin{titlepage}
+  \centering
+  \vspace*{-2cm}
+
+  % — University seal —
+  \includegraphics[width=3cm]{unipd-logo.png}\par
+  \vspace{1cm}
+
+  % — Institution —
+  {\scshape\LARGE University of Padova\par}
+
+  \rule{\textwidth}{0.5pt}\vspace{0.6\baselineskip}
+
+  {\scshape Department of Economics and Management ``Marco Fanno''\par}
+  {\itshape \ThesisDegreeProgram \\
+  \vspace{0.5cm}TESI DI LAUREA \par}
+  \vspace{1.5cm}
+
+  % — Thesis title —
+  {\color{unipdred}\bfseries\scshape\LARGE
+    \ThesisTitleMain
+ \\[2pt]
+   \textit{\ThesisTitleSubtitle}\par}
+  \vspace{2.5cm}
+
+  % — Watermark with large grey seal —
+  \begin{tikzpicture}[remember picture,overlay]
+    \node[inner sep=0pt,opacity=0.05]
+      at (current page.center){
+        \includegraphics[width=0.78\textwidth]{unipd-logo.png}};
+  \end{tikzpicture}
+
+  \hspace*{0.08\textwidth}
+\begin{minipage}[t]{0.45\textwidth}
+  \raggedright\large
+  \textsc{Author}\\[6pt]
+  \ThesisAuthor\\
+  \vspace{0.25cm}
+  \ThesisMatricola
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.35\textwidth}
+  \raggedright\large
+  \textsc{Supervisor}\\[6pt]
+  \ThesisSupervisor
+
+\end{minipage}
+
+  \vspace{3.5cm}
+  % — Academic year —
+  \textsc{Academic Year}
+  \ThesisAcademicYear
+\end{titlepage}
+% ---------------------------------------------------------------------
+
+% *************************
+\onehalfspacing
+
+\tableofcontents
+\pagenumbering{roman}
+
+\listoftables
+\listoffigures
+\include{Acronym_Glossary}
+\include{Acknowledgements}
+\include{abstract}
+\include{Authenticity_Declaration}
+\clearpage
+
+\pagenumbering{arabic}
+
+\include{Chapters/Chapter_1_Introduction}
+\include{Chapters/Chapter_2_LiteratureReview}
+\include{Chapters/Chapter_3_Methodology}
+\include{Chapters/Chapter_4_Results}
+
+%References
+\nocite{*}
+\printbibliography[heading=bibintoc, title={References}]
+
+% Appendices
+\appendix
+\include{appendix/Appendix_A}
+
+\end{document}

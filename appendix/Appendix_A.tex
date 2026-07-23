@@ -1,0 +1,16 @@
+\chapter{Supplementary Derivation}
+\label{app:supplementary}
+
+% --- Demonstrates: appendix lettering/numbering (this becomes "Appendix A"
+% automatically because of \appendix in main.tex) and a second `theo` box.
+% Add more files here (Appendix_B.tex, ...) and \include them from main.tex
+% the same way the chapters are included.
+
+This appendix shows how supplementary material -- derivations, robustness checks, extended tables -- is structured once \texttt{\textbackslash appendix} has been called in \texttt{main.tex}: chapters restart as lettered appendices (A, B, C, \ldots) instead of numbered chapters.
+
+\begin{theo}{Boundary Condition}{boundary-condition}
+\label{theo:boundary-condition}
+At the optimal trigger $P^{*}$ derived in \cref{chap:methodology}, the value function must satisfy both value-matching and smooth-pasting conditions with the payoff function.
+\end{theo}
+
+Add your own appendices as additional files in this folder (e.g.\ \texttt{Appendix\_B.tex}), and wire each one into \texttt{main.tex} with an \texttt{\textbackslash include\{appendix/Appendix\_B\}} line, right after this one.
