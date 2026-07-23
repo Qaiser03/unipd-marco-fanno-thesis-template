@@ -22,8 +22,5 @@
 *.toc
 _minted*/
 
-# Compiled output -- regenerate locally with `latexmk -pdf main.tex`
-main.pdf
-
 # Local Claude Code settings -- machine-specific, not part of the template
 .claude/
